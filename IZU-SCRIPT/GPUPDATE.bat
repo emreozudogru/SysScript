@@ -1,4 +1,8 @@
 @echo off
+rem --- Script purpose ---
+rem Bulk remote GPUPDATE execution across domain computers.
+rem WARNING: Validate target domain/OU and run in maintenance window.
+rem ----------------------
 TITLE IZU LAB LOGICY INSTALL
 cls
 echo.
