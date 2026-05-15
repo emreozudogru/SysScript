@@ -1,73 +1,61 @@
 # SysScript
 
-SysScript is a collection of Windows batch scripts for **centralized administration, maintenance, and update operations** in Active Directory domain environments.
+SysScript is a practical collection of Windows batch scripts for centralized administration in Active Directory environments.
 
-It is designed for bulk remote execution scenarios using tools such as `PsExec`, `dsquery`, `ping`, `gpupdate`, `wuauclt`, `dism`, and `shutdown`.
+## What is included
 
-## Organization-Specific Context
+This repository groups operational scripts used to:
 
-This repository includes scripts customized for **Istanbul Sabahattin Zaim University (IZU)**:
+- trigger and monitor Windows Update tasks,
+- run remote `gpupdate` commands,
+- clean disks and user profiles,
+- restart or shut down target machines,
+- disable SMB1 and legacy sharing configurations.
 
-- `izu.edu.tr` domain context for institutional systems
-- `std.izu.edu.tr` subdomain context for student systems
+## Repository layout
 
-In this repo, `STD` refers to the **student domain** (`std.izu.edu.tr`).
-
-## Repository Structure
-
-- `IZU-SCRIPT/`: Scripts targeting IZU institutional domain hosts
-- `STD-SCRIPT/`: Scripts targeting STD student-domain hosts (`std.izu.edu.tr`)
-- `SCRIPT-IZU/`: Supporting files (for example `PING.txt`)
-
-## What These Scripts Do
-
-- Trigger and report Windows Update activity in bulk
-- Run `gpupdate` remotely on multiple hosts
-- Disable SMB1 features on clients/servers
-- Execute cleanup and restart tasks
-- Perform profile cleanup operations (in STD scripts)
+- `IZU-SCRIPT/` → scripts for institutional systems
+- `STD-SCRIPT/` → scripts for student-domain systems
+- `SCRIPT-IZU/` → support files such as host lists and logs
 
 ## Requirements
 
-Typical prerequisites:
+Before running scripts, ensure you have:
 
-1. Active Directory connectivity
-2. Administrative privileges (local/domain admin as required)
-3. Reachable target hosts (network + firewall rules)
-4. `PsExec64.exe` available in expected paths
-5. AD command-line tools (`dsquery`, usually via RSAT)
+1. Domain connectivity and DNS resolution
+2. Administrative privileges on target machines
+3. RSAT / AD CLI tools (`dsquery`) when required
+4. `PsExec64.exe` available in expected folder paths
+5. Network/firewall rules that allow remote management
 
-## Usage
+## Basic usage
 
-> ⚠️ These scripts can make immediate remote changes. Always validate in a test OU/lab before production use.
-
-1. Open Command Prompt as Administrator.
-2. Move into the relevant folder (`IZU-SCRIPT` or `STD-SCRIPT`).
-3. Review OU/domain filters inside the script.
-4. Run the script and review generated output files (`PING.txt`, `domaincomputers*.txt`, etc.).
-
-Example:
+> ⚠️ Run in a test OU/lab first. Many scripts apply remote changes immediately.
 
 ```bat
 cd IZU-SCRIPT
 INSTALL_UPDATE_ALL.bat
 ```
 
-## Safety Notes
+Recommended workflow:
 
-- Many scripts include hard-coded OU/domain paths.
-- Incorrect targeting may cause mass restart or disruptive changes.
-- For operational changes, document impact scope in pull requests.
+1. Open script and review OU/domain filters.
+2. Confirm the target scope.
+3. Execute from an elevated Command Prompt.
+4. Review generated outputs/log files.
 
-See [SECURITY.md](SECURITY.md) for more guidance.
+## Safety notes
 
-## Contributing
+- Scripts may include hard-coded domain/OU filters.
+- Mis-targeting can affect many machines at once.
+- Validate scripts in non-production first.
 
-Please read:
+## Documentation
 
 - [CONTRIBUTING.md](CONTRIBUTING.md)
 - [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md)
+- [SECURITY.md](SECURITY.md)
 
 ## License
 
-This project is licensed under the [MIT License](LICENSE).
+Distributed under the MIT License. See [LICENSE](LICENSE).
